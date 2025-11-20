@@ -25,7 +25,7 @@ export const Hero = ({ setSearchQuery, searchQuery }) => {
      console.log(info);
 
      return (
-          <div className="relative flex-col h-[40vh] md:h-[50vh] lg:h-auto lg:pb-5 bg-gradient-to-br from-primary via-secondary to-accent overflow-hidden flex items-center">
+          <div className="relative flex-col h-auto  md:h-[50vh] lg:h-auto lg:pb-5 bg-gradient-to-br from-primary via-secondary to-accent overflow-hidden flex items-center">
                {/* Soft Wave */}
                {info.HERO_IMAGE ? (
                     <img
