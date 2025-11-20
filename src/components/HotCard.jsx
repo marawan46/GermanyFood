@@ -15,10 +15,10 @@ export const HotCard = React.memo(({ item, setShowAllergyModal }) => {
      return (
           <div
                key={item.id}
-               className="w-full  md:h-full"
+               className="!w-full h-full"
                data-animate="fade-up"
           >
-               <div className="flex flex-row md:h-full flex-1 flex-grow justify-between md:flex-col bg-gradient-to-br from-orange-50 to-red-50 rounded-xl overflow-hidden transition-all hover:cursor-pointer duration-300 border-2 border-orange-300">
+               <div className="flex flex-row h-full justify-between md:flex-col bg-gradient-to-br from-orange-50 to-red-50 rounded-xl overflow-hidden hover:cursor-pointer duration-300 border-2 border-orange-300">
                     <div className="relative flex justify-center bg-slate-200">
                          <div className="md:w-full w-32 h-full md:h-32">
                               <img
@@ -34,7 +34,7 @@ export const HotCard = React.memo(({ item, setShowAllergyModal }) => {
                          </div>
                     </div>
 
-                    <div className="p-3 md:p-4 flex flex-col">
+                    <div className="p-3 md:p-4 flex w-full flex-col min-w-0">
                          <div className="mb-2">
                               <span className="inline-block px-2 py-0.5 bg-orange-200 text-orange-800 text-xs font-semibold rounded mb-1">
                                    Nr. {item.number}
@@ -78,7 +78,7 @@ export const HotCard = React.memo(({ item, setShowAllergyModal }) => {
                                    >
                                         <Info className="w-3 h-3" />
                                         <span className="font-semibold">
-                                             {item.allergies.join(", ")}
+                                             {item.allergies}
                                         </span>
                                    </button>
                               </div>

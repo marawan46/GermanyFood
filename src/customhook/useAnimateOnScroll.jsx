@@ -10,7 +10,7 @@ export default function useAnimateOnScroll(selector = "[data-animate]") {
           }
         });
       },
-      { threshold: 0.3 } // 20% من العنصر يظهر على الشاشة
+      { threshold: 0.2 } // 20% من العنصر يظهر على الشاشة
     );
 
     const elements = document.querySelectorAll(selector);
