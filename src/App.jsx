@@ -19,6 +19,8 @@ import { useRef } from 'react';
 import { Hero } from "./components/Hero";
 import ProductCarousel from "./components/ProductsCarousel";
 import { Card } from "./components/Card";
+import { useFetchProducts } from "./customhook/useFetchProducts";
+import { useFetchCategories } from "./customhook/useFetchCategories";
 
 // Tailwind config colors (foody scheme)
 const colors = {
@@ -242,26 +244,22 @@ const allergyInfo = {
   "30": "Chininhaltig"
 };
 
-const categories = [
-  { name: "Vorspeisen", icon: ChefHat },
-  { name: "Suppen", icon: Soup },
-  { name: "Salate", icon: Salad },
-  { name: "Curry", icon: UtensilsCrossed },
-  { name: "Nudeln & Reis", icon: UtensilsCrossed },
-  { name: "Desserts", icon: IceCream },
-  { name: "Getränke", icon: Coffee }
-];
+
 
 function ThaiRestaurantMenu() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Alle');
   const [showAllergyModal, setShowAllergyModal] = useState(false);
-  const [selectedChoices, setSelectedChoices] = useState({});
-  const [currentSlide, setCurrentSlide] = useState(0);
   const carouselRef = useRef(null);
+  
+const {categories, loading:catLoading} = useFetchCategories()
+//console.log(useFetchCategories());
 
+  const { products, loading, error } = useFetchProducts()
+  console.log(products);
+  
   const filteredItems = useMemo(() => {
-    let items = menuData;
+    let items = products || [];
     
     if (searchQuery) {
       items = items.filter(item =>
@@ -274,7 +272,7 @@ function ThaiRestaurantMenu() {
     }
     
     return items;
-  }, [searchQuery, selectedCategory]);
+  }, [searchQuery, selectedCategory, products]);
 
 
 
@@ -285,6 +283,7 @@ function ThaiRestaurantMenu() {
       <div className="sticky top-0 z-40 bg-white shadow-md border-b-2 border-orange-200">
         <div className="container mx-auto px-4 py-2 md:py-3">
           <div className="flex gap-2 md:gap-3 overflow-x-auto scrollbar-hide pb-2">
+            
             <button
               onClick={() => setSelectedCategory('Alle')}
               className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-5 py-2 md:py-2.5 rounded-full whitespace-nowrap transition-all flex-shrink-0 text-sm md:text-base ${
@@ -296,21 +295,26 @@ function ThaiRestaurantMenu() {
               <UtensilsCrossed className="w-4 h-4 md:w-5 md:h-5" />
               <span className="font-semibold">Alle</span>
             </button>
-            {categories.map((cat) => (
+            {!catLoading ?
+              categories.map((cat) => (
               <a
-                key={cat.name}
+                key={cat}
                 href="#Products"
-                onClick={() => setSelectedCategory(cat.name)}
+                onClick={() => setSelectedCategory(cat)}
                 className={`flex hover:cursor-pointer items-center gap-1.5 md:gap-2 px-3 md:px-5 py-2 md:py-2.5 rounded-full whitespace-nowrap transition-all flex-shrink-0 text-sm md:text-base ${
-                  selectedCategory === cat.name
+                  selectedCategory === cat
                     ? 'bg-orange-500 text-white shadow-lg'
                     : 'bg-gray-100 text-gray-700 hover:bg-orange-100'
                 }`}
               >
-                <cat.icon className="w-4 h-4 md:w-5 md:h-5" />
-                <span className="font-semibold">{cat.name}</span>
+                <span className="font-semibold">{cat}</span>
               </a>
-            ))}
+            ))
+            :
+            [1,2,3,4,5,6].map(()=>{
+              return <div className="rounded-2xl w-20 px-3 py-2 animate-pulse bg-gray-200"></div>
+            })
+            }
           </div>
         </div>
       </div>
@@ -334,7 +338,7 @@ function ThaiRestaurantMenu() {
                 <HotCard item={item} setShowAllergyModal={setShowAllergyModal} handleChoiceChange={handleChoiceChange}/>
               );
             })} */}
-            <ProductCarousel products={menuData} id={"HOT"}/>
+            <ProductCarousel products={menuData} setShowAllergyModal={setShowAllergyModal} id={"HOT"}/>
           </div>
         </div>
       </div>
@@ -344,21 +348,21 @@ function ThaiRestaurantMenu() {
         <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 md:mb-8">Unsere Speisekarte</h2>
         
         {categories.map((category) => {
-          const categoryItems = filteredItems.filter(item => item.category === category.name);
+          const categoryItems = filteredItems.filter(item => item.category === category);
           
           if (categoryItems.length === 0) return null;
           
           return (
-            <div key={category.name} className="mb-8 md:mb-12">
+            <div key={category} className="mb-8 md:mb-12">
               <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6 pb-2 md:pb-3 border-b-2 border-orange-200">
-                <category.icon className="w-5 h-5 md:w-7 md:h-7 text-orange-500" />
-                <h3 className="text-xl md:text-2xl font-bold text-gray-800">{category.name}</h3>
+                {/* <category.icon className="w-5 h-5 md:w-7 md:h-7 text-orange-500" /> */}
+                <h3 className="text-xl md:text-2xl font-bold text-gray-800">{category}</h3>
               </div>
               
               <div className="space-y-3 md:space-y-0 grid items-center justify-center grid-cols-1 md:grid-cols-3 lg:grid-cols-4 md:gap-4">
                 {categoryItems.map((item) => {                  
                   return (
-                    <Card item={item} setShowAllergyModal={setShowAllergyModal}/>
+                    <Card item={item} key={item.name} setShowAllergyModal={setShowAllergyModal}/>
                   );
                 })}
               </div>
