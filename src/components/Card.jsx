@@ -9,7 +9,7 @@ export const Card = ({ item, setShowAllergyModal }) => {
           choices[0] ? choices[0].price : 0
      );
 
-     useAnimateOnScroll();
+     
 
      //     {
      //     "id": "G6H7I",
@@ -29,13 +29,14 @@ export const Card = ({ item, setShowAllergyModal }) => {
      //     "isHot": true
      // }
      //if(!item.isAvailable || !item.choices) return
+     useAnimateOnScroll();
      return (
           <div
                key={item.id}
                className="bg-white rounded-lg h-full shadow-md hover:shadow-lg transition-all mb-0 duration-300 border border-gray-200 overflow-hidden"
                data-animate="fade-up"
           >
-               <div className="flex h-full flex-row justify-between  md:flex-col">
+               <div className="flex h-full flex-row justify-between md:flex-col">
                     <div className="md:w-full w-40 h-[180px] md:h-32">
                          <img
                               src={item.image}
@@ -45,7 +46,7 @@ export const Card = ({ item, setShowAllergyModal }) => {
                          />
                     </div>
 
-                    <div className="flex-1 p-3 flex flex-col">
+                    <div className="flex-1 p-3 flex flex-col min-w-0">
                          <div className="mb-2">
                               <div className="flex items-start justify-between gap-2 mb-1">
                                    <div className="flex-1">
@@ -56,15 +57,6 @@ export const Card = ({ item, setShowAllergyModal }) => {
                                              {item.title}
                                         </h4>
                                    </div>
-                                   {/* <button
-                onClick={() => setShowAllergyModal(true)}
-                className="flex items-center gap-0.5 px-1.5 py-0.5 bg-orange-100 text-orange-700 rounded hover:bg-orange-200 transition-colors flex-shrink-0"
-              >
-                <Info className="w-3 h-3" />
-                <span className="text-xs font-semibold">
-                  {item.allergies.join(",")}
-                </span>
-              </button> */}
                               </div>
                               <p className="text-xs text-gray-600 line-clamp-1 md:line-clamp-2">
                                    {item.description}

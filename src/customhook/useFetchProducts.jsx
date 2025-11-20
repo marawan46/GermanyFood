@@ -28,16 +28,20 @@ export const useFetchProducts = () => {
                          skipEmptyLines: true,
                          dynamicTyping: true, // يحول TRUE/FALSE لـ boolean و أرقام لـ number
                     });
-                    const cleanedData = result.data.map((item) => {
+                    const availableProducts = result.data.filter(item => item.isAvailable);
+                    const cleanedData = availableProducts.map((item) => {
                          if (item.choices) {
                               try {
                                    item.choices = JSON.parse(item.choices);
                               } catch (e) {
+                                   console.warn(e,"choices not valid json")
                                    item.choices = [];
                               }
                          }
                          return item; // مهم جداً
                     });
+
+                    setProducts(cleanedData);
 
                     setProducts(cleanedData);
                } catch (err) {
