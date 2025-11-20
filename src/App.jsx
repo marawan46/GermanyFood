@@ -12,11 +12,11 @@ import {
   Coffee,
   ChevronRight,
   ChevronLeft,
+  XIcon,
 } from "lucide-react";
 
 import { useRef } from 'react';
 import { Hero } from "./components/Hero";
-import { HotCard } from "./components/HotCard";
 import ProductCarousel from "./components/ProductsCarousel";
 import { Card } from "./components/Card";
 
@@ -276,30 +276,7 @@ function ThaiRestaurantMenu() {
     return items;
   }, [searchQuery, selectedCategory]);
 
-  const handleChoiceChange = (itemId, choiceIndex) => {
-    setSelectedChoices(prev => ({
-      ...prev,
-      [itemId]: choiceIndex
-    }));
-  };
 
-  const getItemPrice = (item) => {
-    const choiceIndex = selectedChoices[item.id] || 0;
-    return item.choices[choiceIndex].price.toFixed(2);
-  };
-
-  const scrollCarousel = (direction) => {
-    if (!carouselRef.current) return;
-    const scrollAmount = carouselRef.current.offsetWidth;
-    const newPosition = direction === 'next' 
-      ? carouselRef.current.scrollLeft + scrollAmount
-      : carouselRef.current.scrollLeft - scrollAmount;
-    
-    carouselRef.current.scrollTo({
-      left: newPosition,
-      behavior: 'smooth'
-    });
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
@@ -320,10 +297,11 @@ function ThaiRestaurantMenu() {
               <span className="font-semibold">Alle</span>
             </button>
             {categories.map((cat) => (
-              <button
+              <a
                 key={cat.name}
+                href="#Products"
                 onClick={() => setSelectedCategory(cat.name)}
-                className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-5 py-2 md:py-2.5 rounded-full whitespace-nowrap transition-all flex-shrink-0 text-sm md:text-base ${
+                className={`flex hover:cursor-pointer items-center gap-1.5 md:gap-2 px-3 md:px-5 py-2 md:py-2.5 rounded-full whitespace-nowrap transition-all flex-shrink-0 text-sm md:text-base ${
                   selectedCategory === cat.name
                     ? 'bg-orange-500 text-white shadow-lg'
                     : 'bg-gray-100 text-gray-700 hover:bg-orange-100'
@@ -331,7 +309,7 @@ function ThaiRestaurantMenu() {
               >
                 <cat.icon className="w-4 h-4 md:w-5 md:h-5" />
                 <span className="font-semibold">{cat.name}</span>
-              </button>
+              </a>
             ))}
           </div>
         </div>
@@ -362,7 +340,7 @@ function ThaiRestaurantMenu() {
       </div>
 
       {/* All Products Section - Compact List View */}
-      <div className="container mx-auto px-4 pb-12 md:pb-16">
+      <div id="Products" className="container mx-auto px-4 pb-12 md:pb-16">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 md:mb-8">Unsere Speisekarte</h2>
         
         {categories.map((category) => {
@@ -377,7 +355,7 @@ function ThaiRestaurantMenu() {
                 <h3 className="text-xl md:text-2xl font-bold text-gray-800">{category.name}</h3>
               </div>
               
-              <div className="space-y-3 md:space-y-0 grid items-center justify-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-4">
+              <div className="space-y-3 md:space-y-0 grid items-center justify-center grid-cols-1 md:grid-cols-3 lg:grid-cols-4 md:gap-4">
                 {categoryItems.map((item) => {                  
                   return (
                     <Card item={item} setShowAllergyModal={setShowAllergyModal}/>
@@ -389,7 +367,7 @@ function ThaiRestaurantMenu() {
         })}
         
         {filteredItems.length === 0 && (
-          <div className="text-center py-12 md:py-16">
+          <div className="text-center py-12 md:py-16" data-animate="fade-up">
             <p className="text-lg md:text-xl text-gray-500">Keine Gerichte gefunden.</p>
           </div>
         )}
@@ -401,14 +379,12 @@ function ThaiRestaurantMenu() {
           <div className="bg-white rounded-2xl max-w-3xl w-full max-h-[80vh] overflow-hidden shadow-2xl">
             <div className="bg-gradient-to-r from-orange-500 to-red-500 p-4 md:p-6 text-white">
               <div className="flex items-center justify-between">
-                <h3 className="text-xl md:text-2xl font-bold">Allergene & Zusatzstoffe</h3>
+                <h3 className="text-xl md:text-2xl font-bold text-red-500">Allergene & Zusatzstoffe</h3>
                 <button
                   onClick={() => setShowAllergyModal(false)}
-                  className="text-white hover:bg-white hover:bg-opacity-20 rounded-full p-2 transition-colors"
+                  className="text-red-500 hover:bg-gray-100 bg-gray-200 rounded-full p-2 transition-colors"
                 >
-                  <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
+                  <XIcon />
                 </button>
               </div>
             </div>
@@ -429,27 +405,6 @@ function ThaiRestaurantMenu() {
         </div>
       )}
       
-      <style jsx>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        .line-clamp-1 {
-          display: -webkit-box;
-          -webkit-line-clamp: 1;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-        .line-clamp-2 {
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-      `}</style>
     </div>
   );
 }

@@ -1,18 +1,21 @@
 import { Info } from 'lucide-react';
 import React, { useState } from 'react'
+import useAnimateOnScroll from '../customhook/useAnimateOnScroll';
 
 export const Card = ({ item, setShowAllergyModal }) => {
     const choices = item.choices
     const [selectedChoice, setChoice] = useState(choices[0])
     const [price, setPrice] = useState(selectedChoice.price)
 
+    const observer = useAnimateOnScroll()
   return (
     <div
       key={item.id}
-      className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all mb-0 duration-300 border border-gray-200 overflow-hidden"
+      className="bg-white rounded-lg h-full shadow-md hover:shadow-lg transition-all mb-0 duration-300 border border-gray-200 overflow-hidden"
+    data-animate="fade-up"
     >
-      <div className="flex flex-row lg:flex-col">
-        <div className="relative w-24 md:w-28 flex-shrink-0">
+      <div className="flex h-full flex-row justify-between  md:flex-col">
+        <div className="md:w-full w-40 h-[180px] md:h-32">
           <img
             src={item.image}
             alt={item.title}
@@ -31,7 +34,7 @@ export const Card = ({ item, setShowAllergyModal }) => {
                   {item.title}
                 </h4>
               </div>
-              <button
+              {/* <button
                 onClick={() => setShowAllergyModal(true)}
                 className="flex items-center gap-0.5 px-1.5 py-0.5 bg-orange-100 text-orange-700 rounded hover:bg-orange-200 transition-colors flex-shrink-0"
               >
@@ -39,7 +42,7 @@ export const Card = ({ item, setShowAllergyModal }) => {
                 <span className="text-xs font-semibold">
                   {item.allergies.join(",")}
                 </span>
-              </button>
+              </button> */}
             </div>
             <p className="text-xs text-gray-600 line-clamp-1 md:line-clamp-2">
               {item.description}
