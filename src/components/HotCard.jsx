@@ -5,9 +5,18 @@ export const HotCard = ({item ,setShowAllergyModal}) => {
     const choices = item.choices
     const [selectedChoice, setChoice] = useState(choices[0])
     const [price, setPrice] = useState(selectedChoice.price)
+
+      const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("show");
+      });
+    });
+    
+    document.querySelectorAll("[data-animate]").forEach((el) => observer.observe(el));
+    
     return (
-      <div key={item.id} className="w-full">
-        <div className="flex flex-row md:flex-col bg-gradient-to-br from-orange-50 to-red-50 rounded-xl overflow-hidden transition-all hover:translate-y-[-8px] duration-300 border-2 border-orange-300">
+      <div key={item.id} className="w-full h-full" data-animate="fade-up">
+        <div className="flex flex-row h-full flex-1 flex-grow justify-between md:flex-col bg-gradient-to-br from-orange-50 to-red-50 rounded-xl overflow-hidden transition-all hover:translate-y-[-8px] duration-300 border-2 border-orange-300">
           <div className="relative flex justify-center bg-slate-200">
             <div className="md:w-full w-32 h-full md:h-32">
               <img
