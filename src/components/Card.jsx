@@ -1,6 +1,5 @@
 import { Info } from "lucide-react";
 import React, { useState } from "react";
-import useAnimateOnScroll from "../customhook/useAnimateOnScroll";
 
 export const Card = ({ item, setShowAllergyModal }) => {
      const choices = item.choices || [];
@@ -29,7 +28,6 @@ export const Card = ({ item, setShowAllergyModal }) => {
      //     "isHot": true
      // }
      //if(!item.isAvailable || !item.choices) return
-     useAnimateOnScroll();
      return (
           <div
                key={item.id}

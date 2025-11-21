@@ -20,9 +20,9 @@ export default function CategoryFilterWithScroll({
      };
 
      return (
-          <div className="sticky top-0 z-40 bg-white shadow-md border-b-2 border-orange-200">
+          <div className="sticky top-0 w-screen z-40 bg-white shadow-md border-b-2 border-orange-200">
                <div className="container mx-auto px-4 py-2 md:py-3">
-                    <div className="relative">
+                    <div className="relative overflow-hidden">
                          {/* Left Arrow */}
                          <button
                               onClick={() => scroll("left")}
@@ -34,7 +34,7 @@ export default function CategoryFilterWithScroll({
                          {/* Scrollable Categories */}
                          <div
                               ref={scrollContainerRef}
-                              className="flex gap-2 md:gap-3 overflow-x-auto scrollbar-hide pb-2 scroll-smooth px-8 md:px-10"
+                              className="flex gap-2 overflow-x-auto pb-2 px-4 md:px-6 scrollbar-hide"
                          >
                               <button
                                    onClick={() => setSelectedCategory("Alle")}
