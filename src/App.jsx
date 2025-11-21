@@ -144,7 +144,7 @@ const {categories, loading:catLoading} = useFetchCategories()
                 <h3 className="text-xl md:text-2xl font-bold text-gray-800">{category}</h3>
               </div>
               
-              <div data-animate="fade-up" className="space-y-3 md:space-y-0 grid items-center justify-center grid-cols-1 md:grid-cols-3 lg:grid-cols-4 md:gap-4">
+              <div data-animate="fade-up" className="space-y-3 md:space-y-0 grid gap-2 items-center justify-center grid-cols-1 md:grid-cols-3 lg:grid-cols-4 md:gap-4">
                 {!catLoading && categoryItems.map((item,index) => {                  
                   return (
                     <Card item={item} key={`${item.name}-${index}`} setShowAllergyModal={setShowAllergyModal}/>
@@ -166,7 +166,7 @@ const {categories, loading:catLoading} = useFetchCategories()
       {showAllergyModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50">
           <div className="bg-white rounded-2xl max-w-3xl w-full max-h-[80vh] overflow-hidden shadow-2xl">
-            <div className="bg-gradient-to-r from-orange-500 to-red-500 p-4 md:p-6 text-white">
+            <div className="bg-gradient-to-r from-orange-200 to-orange-400 p-4 md:p-6 text-black">
               <div className="flex items-center justify-between">
                 <h3 className="text-xl md:text-2xl font-bold text-red-500">Allergene & Zusatzstoffe</h3>
                 <button

@@ -36,8 +36,8 @@ export const Card = ({ item, setShowAllergyModal }) => {
                className="bg-white rounded-lg h-full shadow-md hover:shadow-lg transition-all mb-0 duration-300 border border-gray-200 overflow-hidden"
                data-animate="fade-up"
           >
-               <div className="flex h-full flex-row justify-between md:flex-col">
-                    <div className="md:w-full w-40 h-[180px] md:h-32">
+               <div className="flex h-full flex-row md:justify-between md:flex-col">
+                    <div className="md:w-full w-32 flex-shrink-0 h-full md:h-32">
                          <img
                               src={item.image}
                               alt={item.title}
@@ -46,8 +46,8 @@ export const Card = ({ item, setShowAllergyModal }) => {
                          />
                     </div>
 
-                    <div className="flex-1 p-3 flex flex-col min-w-0">
-                         <div className="mb-2">
+                    <div className="p-3 flex justify-between flex-col w-full min-w-0">
+                         <div className="mb-2 flex flex-col">
                               <div className="flex items-start justify-between gap-2 mb-1">
                                    <div className="flex-1">
                                         <span className="inline-block px-1.5 py-0.5 bg-gray-200 text-gray-700 text-xs font-semibold rounded">
@@ -58,11 +58,11 @@ export const Card = ({ item, setShowAllergyModal }) => {
                                         </h4>
                                    </div>
                               </div>
-                              <p className="text-xs text-gray-600 line-clamp-1 md:line-clamp-2">
+                              <p className="text-xs h-[2rem] text-gray-600 ">
                                    {item.description}
                               </p>
                          </div>
-                         <div className="mt-auto space-y-2">
+                         <div className="space-y-2">
                               <select
                                    value={selectedChoice}
                                    onChange={(e) => {
@@ -70,7 +70,7 @@ export const Card = ({ item, setShowAllergyModal }) => {
                                         setChoice(idx);
                                         setPrice(choices[idx]?.price ?? 0);
                                    }}
-                                   className="w-full px-2 py-1.5 rounded-lg border-2 border-orange-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-200 bg-white text-xs md:text-sm"
+                                   className="w-full p-[0.2rem] rounded-lg border-2 border-orange-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-200 bg-white text-xs md:text-sm"
                               >
                                    {item.choices.map((choice, idx) => (
                                         <option key={idx} value={idx}>
