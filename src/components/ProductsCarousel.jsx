@@ -13,12 +13,12 @@ const ProductCarousel = ({ products, productsLoading, id, setShowAllergyModal })
           <>
                <div className="absolute z-30 pointer-events-none items-center top-0 w-full h-full flex justify-between gap-2">
                     <button
-                         className={`p-2 swiper-prev-${id} pointer-events-auto relative -left-5 rounded-full bg-orange-100 text-orange-600 hover:bg-orange-200 transition-colors`}
+                         className={`p-1 swiper-prev-${id} pointer-events-auto relative  rounded-full bg-orange-100 text-orange-600 hover:bg-orange-200 transition-colors`}
                     >
                          <ChevronLeft className="w-6 h-6" />
                     </button>
                     <button
-                         className={`p-2 swiper-next-${id} pointer-events-auto relative -right-5 rounded-full bg-orange-100 text-orange-600 hover:bg-orange-200 transition-colors`}
+                         className={`p-1 swiper-next-${id} pointer-events-auto relative  rounded-full bg-orange-100 text-orange-600 hover:bg-orange-200 transition-colors`}
                     >
                          <ChevronRight className="w-6 h-6" />
                     </button>
