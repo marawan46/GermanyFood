@@ -35,7 +35,7 @@ export const Card = ({ item, setShowAllergyModal }) => {
                data-animate="fade-up"
           >
                <div className="flex h-full flex-row md:justify-between md:flex-col">
-                    <div className="md:w-full w-32 flex-shrink-0 h-full md:h-32">
+                    <div className="md:w-full w-32 flex-shrink-0 h-full md:h-40">
                          <img
                               src={item.image}
                               alt={item.title}

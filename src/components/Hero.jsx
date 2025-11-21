@@ -1,7 +1,14 @@
-import { Clock, MapIcon, PartyPopper, Phone, Search, Truck } from "lucide-react";
+import {
+     Clock,
+     MapIcon,
+     PartyPopper,
+     Phone,
+     Search,
+     Truck,
+} from "lucide-react";
 import React, { useEffect, useState } from "react";
 import Papa from "papaparse";
-import TextModal from "./TextModal"
+import TextModal from "./TextModal";
 export const Hero = ({ setSearchQuery, searchQuery }) => {
      const [info, setInfo] = useState([]);
      const [infoLoading, setInfoLoading] = useState(false);
@@ -22,7 +29,7 @@ export const Hero = ({ setSearchQuery, searchQuery }) => {
           };
           fetchData();
      }, []);
-     console.log(info);
+     //console.log(info);
 
      return (
           <div className="relative flex-col h-auto  md:h-[50vh] lg:h-auto lg:pb-5 bg-gradient-to-br from-primary via-secondary to-accent overflow-hidden flex items-center">
@@ -77,7 +84,7 @@ export const Hero = ({ setSearchQuery, searchQuery }) => {
 
                     {/* Search Bar */}
                     <div className="relative flex items-center w-full max-w-2xl mx-auto">
-                         <Search className="relative left-10 text-dark/40 w-6 h-6" />
+                         <Search className="relative left-10 text-dark/40 w-6 h-6 pointer-events-none" />
                          <input
                               type="text"
                               placeholder="Suche nach Gerichten..."
@@ -104,8 +111,7 @@ export const Hero = ({ setSearchQuery, searchQuery }) => {
                               htmlFor="modal-delivery"
                               className="cursor-pointer hover:bg-slate-50 p-3 transition-colors duration-150 rounded-lg flex flex-col items-center gap-1"
                          >
-
-                                   <Truck />
+                              <Truck />
                               <span className="text-sm font-semibold">
                                    Lieferservice
                               </span>
@@ -116,8 +122,7 @@ export const Hero = ({ setSearchQuery, searchQuery }) => {
                               htmlFor="modal-party"
                               className="cursor-pointer hover:bg-slate-50 p-3 transition-colors duration-150 rounded-lg flex flex-col items-center gap-1"
                          >
-                              
-                               <PartyPopper/>
+                              <PartyPopper />
                               <span className="text-sm font-semibold">
                                    Partyservice
                               </span>
@@ -139,20 +144,34 @@ export const Hero = ({ setSearchQuery, searchQuery }) => {
                               htmlFor="modal-address"
                               className="cursor-pointer hover:bg-slate-50 p-3 transition-colors duration-150 rounded-lg flex flex-col items-center gap-1"
                          >
-                            <MapIcon />
+                              <MapIcon />
                               <span className="text-sm font-semibold">
                                    Adresse
                               </span>
                          </label>
                     </div>
                     {/* MODALS */}
-                    <TextModal id="modal-delivery" title="delivery" children={info.Lieferservice} />
-                    <TextModal id="modal-party" title="Partyservice" children={info.Partyservice} />
-                    <TextModal id="modal-hours" title="Öffnungszeiten" children={info.Öffnungszeiten} />
-                    <TextModal id="modal-address" title="Adresse" children={info.Adresse} />
-
+                    <TextModal
+                         id="modal-delivery"
+                         title="delivery"
+                         children={info.Lieferservice}
+                    />
+                    <TextModal
+                         id="modal-party"
+                         title="Partyservice"
+                         children={info.Partyservice}
+                    />
+                    <TextModal
+                         id="modal-hours"
+                         title="Öffnungszeiten"
+                         children={info.Öffnungszeiten}
+                    />
+                    <TextModal
+                         id="modal-address"
+                         title="Adresse"
+                         children={info.Adresse}
+                    />
                </div>
-
           </div>
      );
 };
