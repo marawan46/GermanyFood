@@ -23,6 +23,7 @@ import { useFetchProducts } from "./customhook/useFetchProducts";
 import { useFetchCategories } from "./customhook/useFetchCategories";
 import useAnimateOnScroll from "./customhook/useAnimateOnScroll";
 import CategoryFilterWithScroll from "./components/CategoryFilter";
+import ProductModal from "./components/ProductModal";
 
 // // Tailwind config colors (foody scheme)
 // const colors = {
@@ -77,6 +78,11 @@ function ThaiRestaurantMenu() {
      const [selectedCategory, setSelectedCategory] = useState("Alle");
      const [showAllergyModal, setShowAllergyModal] = useState(false);
      const carouselRef = useRef(null);
+
+     const [ProductForModal, setProductForModal] = useState(null);
+     const [visable, setVisable] = useState(false); 
+
+
      const { categories, loading: catLoading } = useFetchCategories();
 
      const { products, loading: productsLoading, error } = useFetchProducts();
@@ -103,6 +109,8 @@ function ThaiRestaurantMenu() {
      useAnimateOnScroll([searchQuery,selectedCategory])
      return (
           <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
+               {visable && <ProductModal setVisable={setVisable} product={ProductForModal}/>}
+
                <Hero
                     setSearchQuery={setSearchQuery}
                     searchQuery={searchQuery}
@@ -179,6 +187,8 @@ function ThaiRestaurantMenu() {
                                                                  setShowAllergyModal={
                                                                       setShowAllergyModal
                                                                  }
+                                                                  setProductForModal={setProductForModal}
+                                                                  setVisable={setVisable}
                                                             />
                                                        );
                                                   }
