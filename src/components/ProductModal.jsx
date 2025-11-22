@@ -13,7 +13,7 @@ export default function ProductModal({ id, setVisable, product }) {
       {/* Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div 
-          className="bg-white relative rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+          className="bg-white relative rounded-2xl shadow-2xl max-w-xl w-full max-h-[90vh] overflow-y-auto"
           onClick={(e) => e.stopPropagation()}
         >
           <button
@@ -24,11 +24,11 @@ export default function ProductModal({ id, setVisable, product }) {
           </button>
 
           {product?.image && (
-            <div className="w-full h-64 md:h-80 bg-gray-100">
+            <div className="h-64 md:h-80 bg-gray-100">
               <img
                 src={product.image}
                 alt={product.title || "Product"}
-                className="w-full h-full aspect-[4/6] object-cover"
+                className="w-full h-full aspect-[9/16] object-contain"
               />
             </div>
           )}
