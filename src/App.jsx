@@ -23,6 +23,7 @@ import { useFetchProducts } from "./customhook/useFetchProducts";
 import { useFetchCategories } from "./customhook/useFetchCategories";
 import useAnimateOnScroll from "./customhook/useAnimateOnScroll";
 import CategoryFilterWithScroll from "./components/CategoryFilter";
+import ProductModal from "./components/ProductModal";
 
 // // Tailwind config colors (foody scheme)
 // const colors = {
@@ -74,13 +75,28 @@ const allergyInfo = {
 
 function ThaiRestaurantMenu() {
      const [searchQuery, setSearchQuery] = useState("");
+     const [search, setSearch] = useState("");
+
      const [selectedCategory, setSelectedCategory] = useState("Alle");
      const [showAllergyModal, setShowAllergyModal] = useState(false);
      const carouselRef = useRef(null);
+
+     const [ProductForModal, setProductForModal] = useState(null);
+     const [visable, setVisable] = useState(false);
+
      const { categories, loading: catLoading } = useFetchCategories();
 
      const { products, loading: productsLoading, error } = useFetchProducts();
      //console.log(products);
+
+     const [searchLoading, setSearchLoading] = useState(false);
+     const onSearchSubmit = (query) => {
+          setSearchLoading(true);
+          setTimeout(() => {
+               setSearchQuery(query);
+               setSearchLoading(false)
+          }, 1000);
+     };
 
      const filteredItems = useMemo(() => {
           const q = (searchQuery || "").trim().toLowerCase();
@@ -91,8 +107,7 @@ function ThaiRestaurantMenu() {
                     (item?.title || "").toString().toLowerCase().includes(q)
                );
           }
-
-          if (selectedCategory !== "Alle") {
+          else if (selectedCategory !== "Alle") {
                items = items.filter(
                     (item) => item?.category === selectedCategory
                );
@@ -100,17 +115,28 @@ function ThaiRestaurantMenu() {
 
           return items;
      }, [searchQuery, selectedCategory, products]);
-     useAnimateOnScroll([searchQuery,selectedCategory])
+     useAnimateOnScroll([searchQuery, selectedCategory]);
      return (
           <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
+               {visable && (
+                    <ProductModal
+                         setVisable={setVisable}
+                         product={ProductForModal}
+                    />
+               )}
+
                <Hero
                     setSearchQuery={setSearchQuery}
+                    setSearch={setSearch}
+                    search={search}
                     searchQuery={searchQuery}
+                    onSearchSubmit={onSearchSubmit}
                />
                {/* Category Selection */}
                <CategoryFilterWithScroll
                     categories={categories}
                     catLoading={catLoading}
+                    setSearchQuery={setSearchQuery}
                     selectedCategory={selectedCategory}
                     setSelectedCategory={setSelectedCategory}
                />
@@ -141,7 +167,10 @@ function ThaiRestaurantMenu() {
                     </div>
                </div>
 
+
                {/* All Products Section - Compact List View */}
+               {searchLoading ? <div id="Products" className="h-[30vh] w-full flex items-center justify-center"><span className="loading loading-spinner text-success"></span></div>
+               :
                <div
                     id="Products"
                     className="container mx-auto px-4 pb-12 md:pb-16"
@@ -179,6 +208,12 @@ function ThaiRestaurantMenu() {
                                                                  setShowAllergyModal={
                                                                       setShowAllergyModal
                                                                  }
+                                                                 setProductForModal={
+                                                                      setProductForModal
+                                                                 }
+                                                                 setVisable={
+                                                                      setVisable
+                                                                 }
                                                             />
                                                        );
                                                   }
@@ -199,6 +234,11 @@ function ThaiRestaurantMenu() {
                          </div>
                     )}
                </div>
+               }
+
+
+
+
 
                {/* Allergy Modal */}
                {showAllergyModal && (

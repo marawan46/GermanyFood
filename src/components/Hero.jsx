@@ -9,7 +9,7 @@ import {
 import React, { useEffect, useState } from "react";
 import Papa from "papaparse";
 import TextModal from "./TextModal";
-export const Hero = ({ setSearchQuery, searchQuery }) => {
+export const Hero = ({ setSearchQuery, setSearch, search,  onSearchSubmit }) => {
      const [info, setInfo] = useState([]);
      const [infoLoading, setInfoLoading] = useState(false);
      useEffect(() => {
@@ -88,8 +88,27 @@ export const Hero = ({ setSearchQuery, searchQuery }) => {
                          <input
                               type="text"
                               placeholder="Suche nach Gerichten..."
-                              value={searchQuery}
-                              onChange={(e) => setSearchQuery(e.target.value)}
+                              value={search}
+                              onChange={(e) => setSearch(e.target.value)}
+                              onKeyDown={(e) => {
+                                   if (e.key === "Enter") {
+                                        if (
+                                             typeof onSearchSubmit ===
+                                             "function"
+                                        ) {
+                                             onSearchSubmit(search);
+                                        }
+                                   
+                                   const productsSection =
+                                        document.getElementById("Products");
+                                   if (productsSection) {
+                                        productsSection.scrollIntoView({
+                                             behavior: "smooth",
+                                             block: "start",
+                                        });
+                                   }
+                              }
+                              }}
                               className="w-full pl-14 pr-5 py-3.5 md:py-4 rounded-full bg-light text-dark shadow-xl outline-none focus:ring-4 focus:ring-accent/40 text-base md:text-lg"
                          />
                          <div></div>

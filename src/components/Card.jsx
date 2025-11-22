@@ -1,7 +1,7 @@
 import { Info } from "lucide-react";
 import React, { useState } from "react";
 
-export const Card = ({ item, setShowAllergyModal }) => {
+export const Card = ({ item, setShowAllergyModal, setProductForModal, setVisable }) => {
      const choices = item.choices || [];
      const [selectedChoice, setChoice] = useState(0);
      const [price, setPrice] = useState(() =>
@@ -56,11 +56,12 @@ export const Card = ({ item, setShowAllergyModal }) => {
                                         </h4>
                                    </div>
                               </div>
-                              <p className="text-xs h-[2rem] text-gray-600 ">
+                              <p className="text-xs h-[2rem] overflow-hidden text-gray-600 ">
                                    {item.description}
                               </p>
                          </div>
                          <div className="space-y-2">
+                              <button className="underline" onClick={()=>{setVisable(true);setProductForModal(item)}}>mehr sehen</button>
                               <select
                                    value={selectedChoice}
                                    onChange={(e) => {
