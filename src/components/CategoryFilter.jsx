@@ -5,6 +5,7 @@ export default function CategoryFilterWithScroll({
      categories,
      selectedCategory,
      setSelectedCategory,
+     setSearchQuery,
      catLoading,
 }) {
      const scrollContainerRef = useRef(null);
@@ -18,7 +19,10 @@ export default function CategoryFilterWithScroll({
                behavior: "smooth",
           });
      };
-
+     const handleCategorySelect = (cat)=>{
+          setSelectedCategory(cat);
+          setSearchQuery("")
+     }
      return (
           <div className="sticky top-0 w-screen z-40 bg-white shadow-md border-b-2 border-orange-200">
                <div className="container mx-auto px-4 py-2 md:py-3">
@@ -37,7 +41,7 @@ export default function CategoryFilterWithScroll({
                               className="flex gap-2 overflow-x-auto pb-2 px-4 md:px-6 scrollbar-hide"
                          >
                               <button
-                                   onClick={() => setSelectedCategory("Alle")}
+                                   onClick={() => handleCategorySelect("Alle")}
                                    className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-5 py-2 md:py-2.5 rounded-full whitespace-nowrap transition-all flex-shrink-0 text-sm md:text-base ${
                                         selectedCategory === "Alle"
                                              ? "bg-orange-500 text-white shadow-lg"
@@ -54,7 +58,7 @@ export default function CategoryFilterWithScroll({
                                                key={cat}
                                                href="#Products"
                                                onClick={() =>
-                                                    setSelectedCategory(cat)
+                                                    handleCategorySelect(cat)
                                                }
                                                className={`flex hover:cursor-pointer items-center gap-1.5 md:gap-2 px-3 md:px-5 py-2 md:py-2.5 rounded-full whitespace-nowrap transition-all flex-shrink-0 text-sm md:text-base ${
                                                     selectedCategory === cat
