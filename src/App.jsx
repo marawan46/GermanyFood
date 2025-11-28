@@ -24,6 +24,7 @@ import { useFetchCategories } from "./customhook/useFetchCategories";
 import useAnimateOnScroll from "./customhook/useAnimateOnScroll";
 import CategoryFilterWithScroll from "./components/CategoryFilter";
 import ProductModal from "./components/ProductModal";
+import Footer from "./components/Footer";
 
 // // Tailwind config colors (foody scheme)
 // const colors = {
@@ -282,10 +283,12 @@ function ThaiRestaurantMenu() {
                          </div>
                     </div>
                )}
+               <Footer />
           </div>
      );
 }
 
 export default function App() {
-     return <ThaiRestaurantMenu />;
+     return <ThaiRestaurantMenu />
+
 }
